@@ -38,17 +38,20 @@
           <button class="w-20 bg-gray-200 border border-gray-200 hover:border-gray-400 font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3 ">Vote</button>
         </div>
       </div>
-      <div class="flex px-2 py-6">
-        <a href="#" class="flex-none">
-          <img src="https://source.unsplash.com/200x200/?face&crop=face&v=1" alt="avatar" class="w-14 h-14 rounded-xl">
-        </a>
+      <div class="flex flex-1 px-2 py-6">
+        <div class="flex-none">
 
-        <div class="mx-4">
+          <a href="#">
+            <img src="https://source.unsplash.com/200x200/?face&crop=face&v=1" alt="avatar" class="w-14 h-14 rounded-xl">
+          </a>
+        </div>
+
+        <div class="w-full mx-4">
           <h4 class="text-xl font-semibold">
             <a href="$" class="hover:underline">A random title can go here</a>
           </h4>
           <div class="text-gray-600 mt-3 line-clamp-3">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem accusamus eaque optio autem ratione accusantium molestiae. Perspiciatis consequatur, possimus aliquam eligendi ex repellendus in numquam ipsa, dolore quod consectetur ullam, perferendis fugiat beatae ipsum minus adipisci quasi! Quod totam, labore dolorum saepe pariatur perspiciatis fuga harum quo a voluptas necessitatibus. Eveniet, porro dolor quisquam, impedit sit commodi perspiciatis numquam tempore esse laboriosam fugiat in optio distinctio! Ab atque sunt deserunt illo, in recusandae laborum? Asperiores provident quam unde? Distinctio voluptas voluptates dolore reiciendis corrupti earum. Magnam ea, laboriosam nemo nam omnis a ex reiciendis placeat perferendis officiis eligendi harum architecto?
+            Lorem ipsum dolor sit amet.
           </div>
 
           <div class="flex items-center justify-between mt-3">
@@ -61,7 +64,7 @@
             </div>
             <div class="flex items-center space-x-2">
               <div class="bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">Open</div>
-              <button class="relative bg-gray-100 hover:bg-gray-200 rounded-full h-7 transition duration-150 ease-in px-4">
+              <button class="relative bg-gray-100 border hover:bg-gray-200 rounded-full h-7 transition duration-150 ease-in px-4">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                 </svg>
