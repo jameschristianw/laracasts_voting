@@ -48,9 +48,9 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                             </svg>
-                            <ul x-show="isOpen" @click.away="isOpen = false" x-transition.origin.top.left x-cloak
-                                @keydown.escape.window="isOpen = false"
-                                class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3 right-0 top-8 md:top-0 md:ml-8 z-10">
+                            <ul wire:ignore x-show="isOpen" @click.away="isOpen = false" x-transition.origin.top.left
+                                x-cloak @keydown.escape.window="isOpen = false"
+                                class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3 right-0 md:ml-8 top-8 md:top-6 right-0 md:left-0 z-10">
                                 <li><a href="#"
                                         class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Mark
                                         as spam</a></li>

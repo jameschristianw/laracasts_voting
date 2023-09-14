@@ -32,8 +32,18 @@
 
     <div class="ideas-container space-y-6 my-6 mx-4 md:mx-0">
         @foreach ($ideas as $idea)
-            <div
-                class="idea-container bg-white rounded-xl flex transition duration-150 ease-in hover:shadow-card cursor-pointer">
+            <div x-data
+                @click="
+                const clicked = $event.target
+                    const target = clicked.tagName.toLowerCase()
+                    const ignores = ['button', 'svg', 'path', 'a']
+
+                    if (!ignores.includes(target)) {
+                        clicked.closest('.idea-container').querySelector('.idea-link').click()
+                    }
+                    "
+                class="idea-container
+                bg-white rounded-xl flex transition duration-150 ease-in hover:shadow-card cursor-pointer">
                 <div class="hidden md:block border-r border-gray-100 px-5 py-8">
                     <div class="text-center">
                         <div class="font-semibold text-2xl">12</div>
@@ -55,7 +65,8 @@
 
                     <div class="w-full mx-4 flex flex-col justify-between">
                         <h4 class="text-xl font-semibold mt-2 md:mt-0">
-                            <a href="{{ route('idea.show', $idea) }}" class="hover:underline">{{ $idea->title }}</a>
+                            <a href="{{ route('idea.show', $idea) }}"
+                                class="idea-link hover:underline">{{ $idea->title }}</a>
                         </h4>
                         <div class="text-gray-600 mt-3 line-clamp-3">
                             {{ $idea->description }}
@@ -80,8 +91,8 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                     </svg>
-                                    <ul x-show="isOpen" @click.away="isOpen = false" x-transition.origin.top.left
-                                        x-cloak @keydown.escape.window="isOpen = false"
+                                    <ul wire:ignore x-show="isOpen" @click.away="isOpen = false"
+                                        x-transition.origin.top.left x-cloak @keydown.escape.window="isOpen = false"
                                         class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0">
                                         <li>
                                             <a href="#"
