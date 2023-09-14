@@ -17,6 +17,7 @@ class IdeaFactory extends Factory {
     public function definition(): array {
         return [
             'user_id' => User::factory(),
+            'category_id' => fake()->numberBetween(1, 4),
             'title' => ucwords(fake()->words(4, true)),
             'description' => fake()->paragraph(5),
         ];

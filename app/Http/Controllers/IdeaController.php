@@ -12,7 +12,8 @@ class IdeaController extends Controller {
      */
     public function index() {
         return view('idea.index', [
-            'ideas' => Idea::paginate(Idea::PAGINATION_COUNT)
+            // 'ideas' => Idea::paginate(Idea::PAGINATION_COUNT)
+            'ideas' => Idea::with('user', 'category')->paginate(Idea::PAGINATION_COUNT) // Eager loading
         ]);
     }
 

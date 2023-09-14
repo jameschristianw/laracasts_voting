@@ -9,12 +9,9 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('ideas', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('title');
-            $table->string('slug')->nullable();
-            $table->text('description');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -23,6 +20,6 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('ideas');
+        Schema::dropIfExists('categories');
     }
 };

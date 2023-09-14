@@ -134,7 +134,7 @@
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi quae quisquam maiores quia, ratione eveniet et laboriosam, eaque cumque nostrum recusandae reiciendis deleniti laudantium ea voluptatibus at possimus culpa. Totam, fugit nostrum asperiores nam inventore enim iure impedit iusto officiis dicta minima repellat unde laudantium quod itaque, doloremque aut, labore sequi ducimus? Iusto sunt quas odio repudiandae voluptatem error numquam architecto, molestiae nesciunt alias ut nemo impedit cupiditate, nam quod! Ad, necessitatibus totam accusamus facilis cupiditate fuga, sit eaque non tempora quis ipsa esse voluptas, porro explicabo? Quis nam quam consectetur recusandae! Optio deserunt corrupti quam quaerat adipisci temporibus tempora?
             </div> --}}
     </main>
-    {{-- <livewire:scripts /> --}}
+    <livewire:scripts />
 </body>
 
 </html>
