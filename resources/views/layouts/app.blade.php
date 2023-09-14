@@ -11,6 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    </@livewireStyles>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -66,7 +67,7 @@
                     <p class="text-sx mt-4">Let us know what you would like to do and we'll take a look</p>
                 </div>
 
-                <form action="#" method="POST" class="space-y-4 px-4 py-6 ">
+                <form action="#" method="POST" class="space-y- 4 px-4 py-6 ">
                     <div>
                         <input type="text"
                             class="border-none text-sm w-full bg-gray-100 rounded-xl placeholder-gray-900 px-4 py-2"
@@ -134,6 +135,7 @@
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi quae quisquam maiores quia, ratione eveniet et laboriosam, eaque cumque nostrum recusandae reiciendis deleniti laudantium ea voluptatibus at possimus culpa. Totam, fugit nostrum asperiores nam inventore enim iure impedit iusto officiis dicta minima repellat unde laudantium quod itaque, doloremque aut, labore sequi ducimus? Iusto sunt quas odio repudiandae voluptatem error numquam architecto, molestiae nesciunt alias ut nemo impedit cupiditate, nam quod! Ad, necessitatibus totam accusamus facilis cupiditate fuga, sit eaque non tempora quis ipsa esse voluptas, porro explicabo? Quis nam quam consectetur recusandae! Optio deserunt corrupti quam quaerat adipisci temporibus tempora?
             </div> --}}
     </main>
+    <@livewireScripts>
 </body>
 
 </html>
