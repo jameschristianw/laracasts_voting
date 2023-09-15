@@ -5,34 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Cviebrock\EloquentSluggable\Sluggable;
+class Status extends Model {
+    use HasFactory;
 
-class Idea extends Model {
-    use HasFactory, Sluggable;
-
-    const PAGINATION_COUNT = 10;
-
-    protected $guarded = [];
-
-    public function sluggable(): array {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
+    public function ideas() {
+        return $this->hasMany(Idea::class);
     }
 
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
-    public function category() {
-        return $this->belongsTo(Category::class);
-    }
-    public function status() {
-        return $this->belongsTo(Status::class);
-    }
-
+    // Replaced by classes in status database :(
     public function getStatusClasses() {
         $allStatuses = [
             'Open' => 'bg-gray-200',
@@ -42,7 +22,7 @@ class Idea extends Model {
             'Closed' => 'bg-red text-white',
         ];
 
-        return $allStatuses[$this->status->name];
+        return $allStatuses[$this->name];
 
         // switch ($this->name) {
         //     case 'Open':
