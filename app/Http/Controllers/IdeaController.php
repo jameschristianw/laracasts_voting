@@ -13,7 +13,10 @@ class IdeaController extends Controller {
     public function index() {
         return view('idea.index', [
             // 'ideas' => Idea::paginate(Idea::PAGINATION_COUNT)
-            'ideas' => Idea::with('user', 'category', 'status')->orderBy('id', 'desc')->paginate(Idea::PAGINATION_COUNT) // Eager loading
+            'ideas' => Idea::with('user', 'category', 'status')
+                ->withCount('votes')
+                ->orderBy('id', 'desc')
+                ->paginate(Idea::PAGINATION_COUNT) // Eager loading
         ]);
     }
 
@@ -37,6 +40,7 @@ class IdeaController extends Controller {
     public function show(Idea $idea) {
         return view('idea.show', [
             'idea' => $idea,
+            'votesCount' => $idea->votes()->count(),
         ]);
     }
 
