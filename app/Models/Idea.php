@@ -68,4 +68,11 @@ class Idea extends Model {
         //         return 'bg-gray-200';
         // }
     }
+
+    public function isVotedByUser(?User $user) {
+        if (!$user) {
+            return false;
+        }
+        return Vote::where('user_id', $user->id)->where('idea_id', $this->id)->exists();
+    }
 }
