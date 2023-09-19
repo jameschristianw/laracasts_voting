@@ -121,4 +121,107 @@ class VoteShowPageTest extends TestCase {
             ->assertSet('hasVoted', true)
             ->assertSee('Voted');
     }
+
+    /** @test */
+    public function user_who_is_not_logged_in_is_redirected_to_login_page_when_tryimng_to_vote() {
+        $userA = User::factory()->create();
+
+        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+
+        $statusOpen = Status::factory()->create(['name' => "Open", 'classes' => 'bg-gray-200']);
+
+        $ideaOne = Idea::factory()->create([
+            'user_id' => $userA->id,
+            'status_id' => $statusOpen->id,
+            "category_id" => $categoryOne->id,
+            'title' => 'My First Idea',
+            'description' => 'Description of my first idea'
+        ]);
+
+        Livewire::test(IdeaShow::class, [
+            'idea' => $ideaOne,
+            'voteCount' => 5,
+        ])
+            ->call('vote')
+            ->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    public function user_who_is_logged_can_vote_for_idea() {
+        $userA = User::factory()->create();
+
+        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+
+        $statusOpen = Status::factory()->create(['name' => "Open", 'classes' => 'bg-gray-200']);
+
+        $ideaOne = Idea::factory()->create([
+            'user_id' => $userA->id,
+            'status_id' => $statusOpen->id,
+            "category_id" => $categoryOne->id,
+            'title' => 'My First Idea',
+            'description' => 'Description of my first idea'
+        ]);
+
+        $this->assertDatabaseMissing('votes', [
+            'user_id' => $userA->id,
+            'idea_id' => $ideaOne->id
+        ]);
+
+        Livewire::actingAs($userA)
+            ->test(IdeaShow::class, [
+                'idea' => $ideaOne,
+                'voteCount' => 5,
+            ])
+            ->call('vote')
+            ->assertSet('voteCount', 6)
+            ->assertSet('hasVoted', true)
+            ->assertSee('Voted');
+
+        $this->assertDatabaseHas('votes', [
+            'user_id' => $userA->id,
+            'idea_id' => $ideaOne->id
+        ]);
+    }
+
+    // /** @test */
+    // public function user_who_is_logged_can_unvote_an_idea() {
+    //     $userA = User::factory()->create();
+
+    //     $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+
+    //     $statusOpen = Status::factory()->create(['name' => "Open", 'classes' => 'bg-gray-200']);
+
+    //     $ideaOne = Idea::factory()->create([
+    //         'user_id' => $userA->id,
+    //         'status_id' => $statusOpen->id,
+    //         "category_id" => $categoryOne->id,
+    //         'title' => 'My First Idea',
+    //         'description' => 'Description of my first idea'
+    //     ]);
+
+    //     Vote::factory()->create([
+    //         'user_id' => $userA->id,
+    //         'idea_id' => $ideaOne->id
+    //     ]);
+
+    //     $this->assertDatabaseHas('votes', [
+    //         'user_id' => $userA->id,
+    //         'idea_id' => $ideaOne->id
+    //     ]);
+
+    //     Livewire::actingAs($userA)
+    //         ->test(IdeaShow::class, [
+    //             'idea' => $ideaOne,
+    //             'voteCount' => 5,
+    //         ])
+    //         ->call('vote')
+    //         ->assertSet('voteCount', 4)
+    //         ->assertSet('hasVoted', false)
+    //         ->assertSee('Vote');
+
+    //     $this->assertDatabaseMissing('votes', [
+    //         'user_id' => $userA->id,
+    //         'idea_id' => $ideaOne->id
+    //     ]);
+    // }
 }
