@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Livewire\IdeaIndex;
+use App\Livewire\IdeasIndex;
 use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
@@ -38,7 +39,7 @@ class VoteIndexPageTest extends TestCase {
 
 
     /** @test */
-    public function index_page_correctly_recieves_vote_count() {
+    public function ideas_index_livewire_component_correctly_recieves_vote_count() {
         $userA = User::factory()->create();
         $userB = User::factory()->create();
 
@@ -64,10 +65,15 @@ class VoteIndexPageTest extends TestCase {
             'user_id' => $userB->id,
         ]);
 
-        $this->get(route('idea.index', $ideaOne))
+        Livewire::test(IdeasIndex::class)
             ->assertViewHas('ideas', function ($ideas) {
                 return $ideas->first()->votes_count == 2;
             });
+
+        // $this->get(route('idea.index', $ideaOne))
+        //     ->assertViewHas('ideas', function ($ideas) {
+        //         return $ideas->first()->votes_count == 2;
+        //     });
     }
 
     /** @test */
@@ -118,13 +124,12 @@ class VoteIndexPageTest extends TestCase {
             'user_id' => $userA->id
         ]);
 
-        $response = $this->actingAs($userA)->get(route('idea.index'));
-
-        $ideaWithVotes = $response['ideas']->items()[0];
+        $ideaOne->votes_count = 1;
+        $ideaOne->voted_by_user = 1;
 
         Livewire::actingAs($userA)
             ->test(IdeaIndex::class, [
-                'idea' => $ideaWithVotes,
+                'idea' => $ideaOne,
                 'voteCount' => 5,
             ])
             ->assertSet('hasVoted', true)
@@ -194,44 +199,42 @@ class VoteIndexPageTest extends TestCase {
     }
 
     /** @test */
-    // public function user_who_is_logged_can_unvote_an_idea() {
-    //     $userA = User::factory()->create();
+    public function user_who_is_logged_in_can_unvote_an_idea() {
+        $userA = User::factory()->create();
 
-    //     $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-    //     $statusOpen = Status::factory()->create(['name' => "Open", 'classes' => 'bg-gray-200']);
+        $statusOpen = Status::factory()->create(['name' => "Open", 'classes' => 'bg-gray-200']);
 
-    //     $ideaOne = Idea::factory()->create([
-    //         'user_id' => $userA->id,
-    //         'status_id' => $statusOpen->id,
-    //         "category_id" => $categoryOne->id,
-    //         'title' => 'My First Idea',
-    //         'description' => 'Description of my first idea'
-    //     ]);
+        $ideaOne = Idea::factory()->create([
+            'user_id' => $userA->id,
+            'status_id' => $statusOpen->id,
+            "category_id" => $categoryOne->id,
+            'title' => 'My First Idea',
+            'description' => 'Description of my first idea'
+        ]);
 
-    //     Vote::factory()->create([
-    //         'user_id' => $userA->id,
-    //         'idea_id' => $ideaOne->id
-    //     ]);
+        Vote::factory()->create([
+            'user_id' => $userA->id,
+            'idea_id' => $ideaOne->id
+        ]);
 
-    //     $this->assertDatabaseHas('votes', [
-    //         'user_id' => $userA->id,
-    //         'idea_id' => $ideaOne->id
-    //     ]);
+        $ideaOne->votes_count = 1;
+        $ideaOne->voted_by_user = 1;
 
-    //     Livewire::actingAs($userA)
-    //         ->test(IdeaIndex::class, [
-    //             'idea' => $ideaOne,
-    //             'voteCount' => 5,
-    //         ])
-    //         ->call('vote')
-    //         ->assertSet('voteCount', 4)
-    //         ->assertSet('hasVoted', false)
-    //         ->assertSee('Vote');
+        Livewire::actingAs($userA)
+            ->test(IdeaIndex::class, [
+                'idea' => $ideaOne,
+                'voteCount' => 5,
+            ])
+            ->call('vote')
+            ->assertSet('voteCount', 4)
+            ->assertSet('hasVoted', false)
+            ->assertSee('Vote');
 
-    //     $this->assertDatabaseMissing('votes', [
-    //         'user_id' => $userA->id,
-    //         'idea_id' => $ideaOne->id
-    //     ]);
-    // }
+        $this->assertDatabaseMissing('votes', [
+            'user_id' => $userA->id,
+            'idea_id' => $ideaOne->id
+        ]);
+    }
 }

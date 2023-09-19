@@ -12,18 +12,7 @@ class IdeaController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        return view('idea.index', [
-            // 'ideas' => Idea::paginate(Idea::PAGINATION_COUNT)
-            'ideas' => Idea::with('user', 'category', 'status')
-                ->addSelect([
-                    'voted_by_user' => Vote::select('id')
-                        ->where('user_id', auth()->id())
-                        ->whereColumn('idea_id', 'ideas.id')
-                ])
-                ->withCount('votes')
-                ->orderBy('id', 'desc')
-                ->paginate(Idea::PAGINATION_COUNT) // Eager loading
-        ]);
+        return view('idea.index');
     }
 
     /**
