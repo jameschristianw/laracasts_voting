@@ -15,7 +15,8 @@ class StatusFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'name' => fake()->words(2, true)
+            'name' => fake()->words(2, true),
+            'classes' => 'bg-gray-200'
         ];
     }
 }
